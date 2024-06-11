@@ -3,7 +3,9 @@ import { Path } from "./config";
 import { LoginLayout, PrivateLayout } from "./layouts";
 import { HomePage, Login, NotFound } from "./pages";
 
-export default function MainRoutes() {
+interface MainRouterInterface {}
+
+const MainRoutes: React.FC<MainRouterInterface> = () => {
   let element = useRoutes([
     {
       path: Path.Login,
@@ -18,4 +20,6 @@ export default function MainRoutes() {
     { path: "*", element: <NotFound /> },
   ]);
   return element;
-}
+};
+
+export default MainRoutes;

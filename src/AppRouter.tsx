@@ -1,10 +1,9 @@
 import { Toaster } from "react-hot-toast";
-import { useAppDispatch } from "./redux/hook";
 import MainRoutes from "./MainRouter";
 
-export default function AppRouter() {
-  const dispatch = useAppDispatch();
+interface AppRouterInterface {}
 
+const AppRouter: React.FC<AppRouterInterface> = () => {
   return (
     <>
       <MainRoutes />
@@ -12,4 +11,6 @@ export default function AppRouter() {
       <Toaster position="top-right" reverseOrder={false} />
     </>
   );
-}
+};
+
+export default AppRouter;

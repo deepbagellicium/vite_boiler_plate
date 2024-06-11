@@ -1,3 +1,2 @@
-import { Path } from "./path";
-import { config } from "./config";
-export { Path, config };
+export { Path } from "./path";
+export { config } from "./config";
