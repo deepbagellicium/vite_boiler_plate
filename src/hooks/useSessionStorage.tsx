@@ -3,21 +3,20 @@ import { decrypt, encrypt } from "utils";
 
 type StateType = Record<string, any>;
 
-export function useLocalStorage<T extends StateType>(
+export function useSessionStorage<T extends StateType>(
   key: string,
   initialState: T
 ) {
-  const [localStore, setLocalStore] = useState<T>(initialState);
+  const [localSession, setLocalSession] = useState<T>(initialState);
 
   useEffect(() => {
     // get existing data
-    const restored = getStorage<T>(key);
-    if (!restored && initialState) {
-      // if not found data and initialState is avaliable set default
-      setStorage(key, initialState);
+    const restored = getSession<T>(key);
+    if (!restored) {
+      setSession(key, initialState);
     }
     if (restored) {
-      setLocalStore((prevValue) => ({
+      setLocalSession((prevValue) => ({
         ...prevValue,
         ...restored,
       }));
@@ -26,19 +25,19 @@ export function useLocalStorage<T extends StateType>(
 
   const updateState = useCallback(
     (updateValue: Partial<T>) => {
-      setLocalStore((prevValue) => {
+      setLocalSession((prevValue) => {
         const newState = {
           ...prevValue,
           ...updateValue,
         };
-        setStorage(key, newState);
+        setSession(key, newState);
         return newState;
       });
     },
     [key]
   );
 
-  const updateStorage = useCallback(
+  const updateSession = useCallback(
     (name: keyof T, updateValue: T[keyof T]) => {
       updateState({
         [name]: updateValue,
@@ -47,22 +46,22 @@ export function useLocalStorage<T extends StateType>(
     [updateState]
   );
 
-  const resetStorage = useCallback(() => {
-    removeStorage(key);
-    setLocalStore(initialState);
+  const resetSession = useCallback(() => {
+    removeSession(key);
+    setLocalSession(initialState);
   }, [initialState, key]);
 
   return {
-    localStore,
-    updateStorage,
-    resetStorage,
+    localSession,
+    updateSession,
+    resetSession,
   };
 }
 
-export const getStorage = <T,>(key: string): T | null => {
+export const getSession = <T,>(key: string): T | null => {
   let value: T | null = null;
   try {
-    const result = window.localStorage.getItem(key);
+    const result = window.sessionStorage.getItem(key);
     if (result) {
       value = decrypt(result) as T;
     }
@@ -73,17 +72,17 @@ export const getStorage = <T,>(key: string): T | null => {
   return value;
 };
 
-export const setStorage = (key: string, value: any): void => {
+export const setSession = (key: string, value: any): void => {
   try {
-    window.localStorage.setItem(key, encrypt(value));
+    window.sessionStorage.setItem(key, encrypt(value));
   } catch (error) {
     console.error(error);
   }
 };
 
-export const removeStorage = (key: string): void => {
+export const removeSession = (key: string): void => {
   try {
-    window.localStorage.removeItem(key);
+    window.sessionStorage.removeItem(key);
   } catch (error) {
     console.error(error);
   }

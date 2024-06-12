@@ -4,6 +4,6 @@ interface ConfigInterface {
 }
 
 export const config: ConfigInterface = {
-  API_URL: "",
-  CRYPTO_SECRET: "y2u0KCR1Pa9kmelwyGlhf5PKXMwbIr2r",
+  API_URL: import.meta.env.VITE_API_URL,
+  CRYPTO_SECRET: import.meta.env.VITE_CRYPTO_SECRET,
 };

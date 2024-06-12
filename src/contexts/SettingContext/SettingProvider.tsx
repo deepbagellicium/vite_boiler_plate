@@ -1,5 +1,5 @@
 import isEqual from "lodash/isEqual";
-import { useMemo, ReactNode, useEffect } from "react";
+import { useMemo, ReactNode } from "react";
 import { useLocalStorage } from "hooks";
 import { SettingsContext } from "./SettingContext";
 
@@ -18,24 +18,24 @@ export function SettingsProvider({
   children,
   defaultSettings,
 }: SettingsProviderProps) {
-  const { state, update, reset } = useLocalStorage<Settings>(
+  const { localStore, updateStorage, resetStorage } = useLocalStorage<Settings>(
     STORAGE_KEY,
     defaultSettings
   );
 
-  const canReset = useMemo(
-    () => !isEqual(state, defaultSettings),
-    [state, defaultSettings]
+  const canStorageReset = useMemo(
+    () => !isEqual(localStore, defaultSettings),
+    [localStore, defaultSettings]
   );
 
   const memoizedValue = useMemo(
     () => ({
-      ...state,
-      onUpdate: update,
-      canReset,
-      onReset: reset,
+      ...localStore,
+      onStorageUpdate: updateStorage,
+      canStorageReset,
+      onStorageReset: resetStorage,
     }),
-    [reset, update, state, canReset]
+    [resetStorage, updateStorage, localStore, canStorageReset]
   );
 
   return (

@@ -5,15 +5,15 @@ interface Settings {
 }
 
 interface SettingsContextType extends Settings {
-  onUpdate: (name: keyof Settings, value: Settings[keyof Settings]) => void;
-  canReset: boolean;
-  onReset: () => void;
+  onStorageUpdate: (name: keyof Settings, value: Settings[keyof Settings]) => void;
+  canStorageReset: boolean;
+  onStorageReset: () => void;
 }
 
 const defaultSettingsContext: SettingsContextType = {
-  onUpdate: () => {},
-  canReset: false,
-  onReset: () => {},
+  onStorageUpdate: () => {},
+  canStorageReset: false,
+  onStorageReset: () => {},
 };
 
 export const SettingsContext = createContext<SettingsContextType>(
