@@ -1,7 +1,7 @@
 import { useRoutes } from "react-router-dom";
-import { Path } from "./config";
-import { LoginLayout, PrivateLayout } from "./layouts";
-import { HomePage, Login, NotFound } from "./pages";
+import { Path } from "config";
+import { LoginLayout, PrivateLayout } from "layouts";
+import { HomePage, Login, NotFound } from "pages";
 
 interface MainRouterInterface {}
 

@@ -1,5 +1,5 @@
 import { Toaster } from "react-hot-toast";
-import MainRoutes from "./MainRouter";
+import MainRoutes from "MainRouter";
 
 interface AppRouterInterface {}
 
