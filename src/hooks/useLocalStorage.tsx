@@ -11,6 +11,9 @@ export function useLocalStorage<T extends StateType>(
   useEffect(() => {
     // get existing data
     const restored = getStorage<T>(key);
+    if (!restored) {
+      setStorage(key, initialState);
+    }
     if (restored) {
       setState((prevValue) => ({
         ...prevValue,
