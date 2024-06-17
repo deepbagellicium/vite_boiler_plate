@@ -6,17 +6,6 @@ import { Path } from "config";
 interface PrivateLayoutProps {}
 const PrivateLayout: React.FC<PrivateLayoutProps> = ({}) => {
   const navigate = useNavigate();
-  const isLoggedIn = false;
-
-  useEffect(() => {
-    if (!isLoggedIn) {
-      navigate(Path.Login);
-    }
-  }, [isLoggedIn, navigate]);
-
-  if (!isLoggedIn) {
-    return;
-  }
 
   return (
     <Box>

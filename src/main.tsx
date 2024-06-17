@@ -6,21 +6,23 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "redux/store";
 import "assets/css/index.css";
-import { SettingsProvider } from "contexts";
+import { SettingsProvider, SocketProvider } from "contexts";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <Provider store={store}>
-    <SettingsProvider
-      defaultSettings={{
-        themeMode: "light",
-        themeColorPresets: "default",
-      }}
-    >
-      <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <AppRouter />
-        </BrowserRouter>
-      </ThemeProvider>
-    </SettingsProvider>
-  </Provider>
+  <SocketProvider>
+    <Provider store={store}>
+      <SettingsProvider
+        defaultSettings={{
+          themeMode: "light",
+          themeColorPresets: "default",
+        }}
+      >
+        <ThemeProvider theme={theme}>
+          <BrowserRouter>
+            <AppRouter />
+          </BrowserRouter>
+        </ThemeProvider>
+      </SettingsProvider>
+    </Provider>
+  </SocketProvider>
 );
