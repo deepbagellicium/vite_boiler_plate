@@ -46,11 +46,13 @@ export const SocketProvider: React.FC<SocketContextProps> = ({ children }) => {
 
   useEffect(() => {
     if (config.CUSTOM_LOGS) console.log("🚀", "accessToken");
-    const connect = io(`${config.API_URL}?token=${"accessToken"}`);
-    setSocket(connect);
-    return () => {
-      connect.disconnect();
-    };
+    if (config.SOCKET_ENABLE) {
+      const connect = io(`${config.API_URL}?token=${"accessToken"}`);
+      setSocket(connect);
+      return () => {
+        connect.disconnect();
+      };
+    }
   }, [reconnect]);
 
   return (

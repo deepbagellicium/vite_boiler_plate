@@ -11,3 +11,5 @@ export {
   setSession,
   removeSession,
 } from "./useSessionStorage";
+export { usePopover } from "./usePopover";
+export { useDebounce } from "./useDebounce";
