@@ -1,15 +1,20 @@
 import { Box } from "@mui/material";
-import React, { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
-import { Path } from "config";
+import React from "react";
+import { Outlet } from "react-router-dom";
+import { Header } from "components";
 
 interface PrivateLayoutProps {}
 const PrivateLayout: React.FC<PrivateLayoutProps> = ({}) => {
-  const navigate = useNavigate();
-
   return (
     <Box>
-      <Outlet />
+      {/* <Header route="/app" /> */}
+      <Box
+        sx={{
+          paddingTop: "80px",
+        }}
+      >
+        <Outlet />
+      </Box>
     </Box>
   );
 };

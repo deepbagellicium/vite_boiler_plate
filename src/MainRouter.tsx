@@ -9,13 +9,16 @@ const MainRoutes: React.FC<MainRouterInterface> = () => {
   let element = useRoutes([
     {
       path: Path.Login,
-      element: <LoginLayout />,
-      children: [{ path: Path.HomePage, element: <Login /> }],
+      element: (
+        <LoginLayout>
+          <Login />
+        </LoginLayout>
+      ),
     },
     {
-      path: Path.HomePage,
+      path: Path.App,
       element: <PrivateLayout />,
-      children: [{ path: Path.App, element: <HomePage /> }],
+      children: [{ path: "", element: <HomePage /> }],
     },
     { path: "*", element: <NotFound /> },
   ]);
