@@ -13,3 +13,4 @@ export {
 } from "./useSessionStorage";
 export { usePopover } from "./usePopover";
 export { useDebounce } from "./useDebounce";
+export { useThrottle } from "./useThrottle";
