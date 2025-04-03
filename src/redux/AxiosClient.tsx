@@ -106,7 +106,6 @@ const AxiosClient = async (
       }
       return toolkit.fulfillWithValue({
         ...response.data,
-        success: true,
         executionTime: time,
       });
     })
@@ -130,7 +129,7 @@ const AxiosClient = async (
         }
         if (error.response.data.status === 401) {
           if (toolkit.dispatch)
-            toolkit.dispatch(setErrorMessageRedux("Session Expired!"));
+            toolkit.dispatch(setErrorMessageRedux("Your session has expired"));
         } else {
           if (toolkit.dispatch)
             toolkit.dispatch(setErrorMessageRedux(error.response.data.message));

@@ -5,6 +5,7 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const PrivateRoute: React.FC = () => {
   const { isAuthenticated } = useAuth();
+  
   return isAuthenticated ? (
     <DashboardLayout>
       <Outlet />

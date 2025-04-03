@@ -23,6 +23,7 @@ interface AuthContextType {
   login: () => void;
   logout: () => void;
   user: Record<string, unknown>;
+  role: string;
 }
 
 interface AuthData {
@@ -98,7 +99,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, login, logout, user: user_info }}
+      value={{
+        isAuthenticated,
+        login,
+        logout,
+        user: user_info,
+        role: user_info?.role as string,
+      }}
     >
       {children}
     </AuthContext.Provider>
