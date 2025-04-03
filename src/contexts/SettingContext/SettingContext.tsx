@@ -1,6 +1,7 @@
 import { createContext, useContext } from "react";
 
 interface Settings {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 

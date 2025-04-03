@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { decrypt, encrypt } from "utils";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type StateType = Record<string, any>;
 
 export function useSessionStorage<T extends StateType>(
@@ -72,6 +73,7 @@ export const getSession = <T,>(key: string): T | null => {
   return value;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setSession = (key: string, value: any): void => {
   try {
     window.sessionStorage.setItem(key, encrypt(value));

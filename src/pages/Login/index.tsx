@@ -1,27 +1,11 @@
-import { Box } from "@mui/material";
-import { useFormikWithYup } from "hooks";
+import { Button } from "@mui/material";
+import { useAuth } from "contexts/AuthContext";
 import React from "react";
-import {
-  InitialValue,
-  InitialValuesInterface,
-  validation,
-} from "./utils/formik";
 
 interface LoginProps {}
 
-const Login: React.FC<LoginProps> = ({}) => {
-  const formik = useFormikWithYup<InitialValuesInterface>({
-    initialValues: InitialValue,
-    validationSchema: validation,
-    onSubmit: (values) => {
-      console.log(values);
-    },
-  });
-
-  const handleChange = ({ name, value }: { name: string; value: string }) => {
-    formik.setFieldValue(name, value);
-  };
-
-  return <Box>Login</Box>;
+const Login: React.FC<LoginProps> = () => {
+  const { login } = useAuth();
+  return <Button onClick={() => login()} variant="outlined">Login</Button>;
 };
 export default Login;

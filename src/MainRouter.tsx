@@ -1,23 +1,25 @@
 import { useRoutes } from "react-router-dom";
 import { Path } from "config";
-import { LoginLayout, PrivateLayout } from "layouts";
 import { HomePage, Login, NotFound } from "pages";
+import { PrivateRoute, PublicRoute } from "guards";
 
 interface MainRouterInterface {}
 
 const MainRoutes: React.FC<MainRouterInterface> = () => {
-  let element = useRoutes([
+  const element = useRoutes([
     {
       path: Path.Login,
-      element: (
-        <LoginLayout>
-          <Login />
-        </LoginLayout>
-      ),
+      element: <PublicRoute />,
+      children: [
+        {
+          path: "",
+          element: <Login />,
+        },
+      ],
     },
     {
       path: Path.App,
-      element: <PrivateLayout />,
+      element: <PrivateRoute />,
       children: [{ path: "", element: <HomePage /> }],
     },
     { path: "*", element: <NotFound /> },

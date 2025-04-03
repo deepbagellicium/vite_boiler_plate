@@ -1,16 +1,16 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { API_PATHS, RequestMethods } from "config/enums";
 import { AxiosClient } from "redux/AxiosClient";
-import { API_PATHS } from "redux/Enums/apis.path";
-import { RequestMethods } from "redux/Enums/request.methods";
 
 export const loginUserAsync = createAsyncThunk(
-  "accuhire/loginUserAsync",
-  async (payload:any, toolkit) => {
+  "boiler/loginUserAsync",
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async (payload: any, toolkit) => {
     return await AxiosClient(
       RequestMethods.POST,
       API_PATHS.LOGIN_USER,
       payload,
-      toolkit,
+      toolkit
       // "multipart/form-data"
     );
   }

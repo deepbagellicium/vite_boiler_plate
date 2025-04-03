@@ -1,38 +1,42 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 interface MessageState {
-  errormessage: string;
-  successmesssage: string;
-  unauth: string;
+  errorMessage: string;
+  successMesssage: string;
+  warningMessage: string;
 }
+
 const initialState: MessageState = {
-  errormessage: "",
-  successmesssage: "",
-  unauth: "",
+  errorMessage: "",
+  successMesssage: "",
+  warningMessage: "",
 };
+
 const MessageReducer = createSlice({
   name: "MessageReducer",
   initialState,
   reducers: {
     setErrorMessageRedux: (state, action) => {
-      state.errormessage = action.payload;
+      state.errorMessage = action.payload;
     },
     setSuccessMessageRedux: (state, action) => {
-      state.successmesssage = action.payload;
+      state.successMesssage = action.payload;
     },
-    setUnAuthMessageRedux: (state, action) => {
-      state.unauth = action.payload;
+    setWarningMessageRedux: (state, action) => {
+      state.warningMessage = action.payload;
     },
     emptyMessageReducer: (state) => {
-      state.errormessage = "";
-      state.successmesssage = "";
-      state.unauth = "";
+      state.errorMessage = "";
+      state.successMesssage = "";
+      state.warningMessage = "";
     },
   },
 });
+
 export const {
   setErrorMessageRedux,
   emptyMessageReducer,
   setSuccessMessageRedux,
-  setUnAuthMessageRedux,
 } = MessageReducer.actions;
+
 export default MessageReducer.reducer;

@@ -1,11 +1,11 @@
 import axios, { GenericAbortSignal } from "axios";
-import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
+import { Action, ThunkDispatch } from "@reduxjs/toolkit";
 import { config } from "config";
 import {
   setErrorMessageRedux,
   setSuccessMessageRedux,
-  setUnAuthMessageRedux,
 } from "./Message/message.slice";
+
 /*
  * Axios Api Call Component
  * @type : GET POST PATCH DELETE
@@ -23,54 +23,38 @@ interface AxiosTypeStringType {
 interface AxiosConfigType {
   method: string;
   url: string;
-  data?: {
-    [key: string]: any;
-  };
-  params?: {
-    [key: string]: any;
-  };
-  headers: {
-    [key: string]: any;
-  };
-  signal: GenericAbortSignal;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data?: Record<string, any>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  params?: Record<string, any>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  headers: Record<string, any>;
+  signal?: GenericAbortSignal;
 }
-
-let ongoingRequests: Record<string, any> = {};
-
-export const cancelRequest = (apiName: string) => {
-  if (ongoingRequests[apiName]) {
-    console.log(ongoingRequests[apiName]);
-    ongoingRequests[apiName].abort();
-    delete ongoingRequests[apiName];
-    console.log(`${apiName} aborted`);
-  }
-};
 
 const AxiosClient = async (
   type: "get" | "post" | "put" | "patch" | "delete",
   api: string,
-  payload: {
-    [key: string]: any;
-  },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  payload: Record<string, any>,
   toolkit: {
-    dispatch?: ThunkDispatch<unknown, unknown, AnyAction>;
+    dispatch?: ThunkDispatch<unknown, unknown, Action>;
     getState?: () => unknown;
     extra?: unknown;
     requestId?: string;
     signal?: AbortSignal;
     abort?: (reason?: string | undefined) => void;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     rejectWithValue: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     fulfillWithValue: any;
   },
   content = "application/json"
 ) => {
   const start = Date.now();
-  // axios manually abort method axios
-  const abort = new AbortController();
-  ongoingRequests[api] = abort;
-  if (!ongoingRequests[api]) cancelRequest(api);
 
-  const _accesstoken = null;
+  const _accesstoken: string | null = null;
+
   const AxiosTypeString: AxiosTypeStringType = {
     get: "get",
     post: "post",
@@ -84,16 +68,17 @@ const AxiosClient = async (
       `axios client payload ===> ${JSON.stringify(payload)} ${api}`
     );
   }
-  let axiosconfig: AxiosConfigType = {
+  const axiosconfig: AxiosConfigType = {
     method: AxiosTypeString[type],
     url: `${config.API_URL}/${api}`,
     data: payload,
     params: payload,
     headers: {
       "Content-Type": content,
-      ...(_accesstoken && { authorization: `Bearer ${_accesstoken}` }),
+      ...(typeof _accesstoken === "string"
+        ? { authorization: `Bearer ${_accesstoken}` }
+        : {}),
     },
-    signal: abort.signal,
   };
   if (config.AXIOS_LOGS) {
     console.log(`Bearer ${_accesstoken}`);
@@ -119,7 +104,6 @@ const AxiosClient = async (
         if (toolkit.dispatch)
           toolkit.dispatch(setSuccessMessageRedux(response.data.message));
       }
-      delete ongoingRequests[api];
       return toolkit.fulfillWithValue({
         ...response.data,
         success: true,
@@ -146,7 +130,7 @@ const AxiosClient = async (
         }
         if (error.response.data.status === 401) {
           if (toolkit.dispatch)
-            toolkit.dispatch(setUnAuthMessageRedux("Session Expired!"));
+            toolkit.dispatch(setErrorMessageRedux("Session Expired!"));
         } else {
           if (toolkit.dispatch)
             toolkit.dispatch(setErrorMessageRedux(error.response.data.message));
@@ -160,7 +144,6 @@ const AxiosClient = async (
         if (toolkit.dispatch)
           toolkit.dispatch(setErrorMessageRedux(error.message));
       }
-      delete ongoingRequests[api];
       return toolkit.rejectWithValue(error.response.data.message);
     });
 };

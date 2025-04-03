@@ -4,7 +4,6 @@ export {
   setStorage,
   removeStorage,
 } from "./useLocalStorage";
-export { useFormikWithYup } from "./useFormikWithYupConfig";
 export {
   useSessionStorage,
   getSession,
@@ -12,5 +11,3 @@ export {
   removeSession,
 } from "./useSessionStorage";
 export { usePopover } from "./usePopover";
-export { useDebounce } from "./useDebounce";
-export { useThrottle } from "./useThrottle";

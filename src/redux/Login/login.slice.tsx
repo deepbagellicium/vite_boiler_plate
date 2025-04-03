@@ -1,17 +1,14 @@
-import { createSlice, isAnyOf, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { loginUserAsync } from "./login.async";
+import { createAsyncMatchers } from "redux/createAsyncMatchers";
 
 interface RankerReducerState {
   loginLoader: boolean;
-  login: { [key: string]: any };
-  accessToken: string;
-  user_info: { [key: string]: any };
+  user_info: Record<string, unknown>;
 }
 
 const initialState: RankerReducerState = {
   loginLoader: false,
-  login: {},
-  accessToken: "",
   user_info: {},
 };
 
@@ -19,32 +16,29 @@ const LoginReducer = createSlice({
   name: "LoginReducer",
   initialState,
   reducers: {
-    setAccessTokenRedux: (state, action) => {
-      state.accessToken = action.payload;
-    },
-    setUserInfoRedux: (state, action) => {
+    onSetUserInformation: (state, action) => {
       state.user_info = action.payload;
     },
-    emptyLoginReducer: (state) => {},
+    onEmptyUserInformation: (state) => {
+      state.user_info = {};
+    },
   },
   extraReducers: (builder) => {
-    // login user
-    builder.addMatcher(isAnyOf(loginUserAsync.pending), (state) => {
-      state.loginLoader = true;
-    });
-    builder.addMatcher(
-      isAnyOf(loginUserAsync.fulfilled),
-      (state, action: PayloadAction<{ data: any; executionTime: number }>) => {
+    createAsyncMatchers(builder, loginUserAsync, {
+      onPending: (state) => {
+        state.loginLoader = true;
+      },
+      onFulfilled: (state) => {
         state.loginLoader = false;
-        state.login = action.payload.data;
-      }
-    );
-    builder.addMatcher(isAnyOf(loginUserAsync.rejected), (state) => {
-      state.loginLoader = false;
+      },
+      onRejected: (state) => {
+        state.loginLoader = false;
+      },
     });
   },
 });
 
-export const { emptyLoginReducer, setAccessTokenRedux, setUserInfoRedux } =
+export const { onSetUserInformation, onEmptyUserInformation } =
   LoginReducer.actions;
+
 export default LoginReducer.reducer;
