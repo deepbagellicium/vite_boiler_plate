@@ -1,5 +1,4 @@
 export enum LOCAL_STORAGE {
-    AUTH = "AUTH",
-    SETTINGS = "SETTINGS",
-  }
-  
+  AUTH = "AUTH",
+  SETTINGS = "SETTINGS",
+}
