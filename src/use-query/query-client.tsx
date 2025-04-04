@@ -15,6 +15,7 @@ export const queryClient = new QueryClient({
     },
   }),
   mutationCache: new MutationCache({
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
     onSuccess: (data: any) => {
       store.dispatch(setSuccessMessageRedux("Mutation success 🎉"));
     },
