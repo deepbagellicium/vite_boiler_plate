@@ -10,25 +10,29 @@ import { MainLoading } from "components";
 import { PersistGate } from "redux-persist/integration/react";
 import { AuthProvider } from "contexts/AuthContext";
 import { MessageProvider } from "contexts/MessageContext";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "use-query/query-client";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <MessageProvider>
-        <SettingsProvider
-          defaultSettings={{
-            themeMode: "light",
-          }}
-        >
-          <BrowserRouter>
-            <Suspense fallback={<MainLoading />}>
-              <AuthProvider>
-                <AppRouter />
-              </AuthProvider>
-            </Suspense>
-          </BrowserRouter>
-        </SettingsProvider>
-      </MessageProvider>
+      <QueryClientProvider client={queryClient}>
+        <MessageProvider>
+          <SettingsProvider
+            defaultSettings={{
+              themeMode: "light",
+            }}
+          >
+            <BrowserRouter>
+              <Suspense fallback={<MainLoading />}>
+                <AuthProvider>
+                  <AppRouter />
+                </AuthProvider>
+              </Suspense>
+            </BrowserRouter>
+          </SettingsProvider>
+        </MessageProvider>
+      </QueryClientProvider>
     </PersistGate>
   </Provider>
 );
