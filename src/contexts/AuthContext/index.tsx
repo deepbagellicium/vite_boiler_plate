@@ -15,7 +15,7 @@ import {
   onEmptyUserInformation,
   onSetUserInformation,
 } from "redux/Login/login.slice";
-import { onPurgePersist } from "redux/store";
+// import { onPurgePersist } from "redux/store";
 import { decodeJWT } from "utils";
 
 interface AuthContextType {
@@ -55,7 +55,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
   const logout = () => {
     removeStorage(LOCAL_STORAGE.AUTH);
-    onPurgePersist();
+    // onPurgePersist();
     dispatch(onEmptyUserInformation());
     setIsAuthenticated(false);
     setTokenValidateLoader(false);
