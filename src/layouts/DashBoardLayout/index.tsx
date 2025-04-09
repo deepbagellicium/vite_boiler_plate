@@ -1,23 +1,15 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
 import Topbar from "components/Topbar";
+import { Outlet } from "react-router-dom";
 
 const drawerWidth = 240;
 
-const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const [mobileOpen, setMobileOpen] = useState(false);
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-
+const DashboardLayout: React.FC = ({}) => {
   return (
     <Box sx={{ display: "flex" }}>
-
       {/* Topbar */}
-      <Topbar handleDrawerToggle={handleDrawerToggle} />
+      <Topbar />
 
       {/* Main Content */}
       <Box
@@ -28,7 +20,7 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
-        {children}
+        <Outlet />
       </Box>
     </Box>
   );

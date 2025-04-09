@@ -1,8 +1,8 @@
 import ReactDOM from "react-dom/client";
-import AppRouter from "AppRouter";
+import AppRouter from "routes/AppRouter";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import store, { persistor } from "redux/store";
+import store from "redux/store";
 import "assets/css/index.css";
 import { SettingsProvider } from "contexts";
 import { Suspense } from "react";
