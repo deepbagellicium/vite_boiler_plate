@@ -4,7 +4,6 @@ import { AxiosClient } from "redux/AxiosClient";
 
 export const loginUserAsync = createAsyncThunk(
   "boiler/loginUserAsync",
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async (payload: any, toolkit) => {
     return await AxiosClient(
       RequestMethods.POST,

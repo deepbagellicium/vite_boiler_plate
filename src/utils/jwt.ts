@@ -13,7 +13,6 @@ export const base64UrlDecode = (str: string) => {
 };
 
 interface JWTDecodedPayload {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 

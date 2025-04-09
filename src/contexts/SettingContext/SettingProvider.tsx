@@ -3,12 +3,11 @@ import { useMemo, ReactNode, useState, useEffect } from "react";
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import { useLocalStorage } from "hooks";
 import { SettingsContext } from "./SettingContext";
-import { lightTheme, darkTheme } from "theme"; // Import MUI themes
+import { lightTheme, darkTheme } from "theme";
 import { LOCAL_STORAGE } from "config/enums";
 
 interface Settings {
   themeMode: "light" | "dark";
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 

@@ -1,7 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { decrypt, encrypt } from "utils";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type StateType = Record<string, any>;
 
 export function useLocalStorage<T extends StateType>(
@@ -74,7 +73,6 @@ export const getStorage = <T,>(key: string): T | null => {
   return value;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setStorage = (key: string, value: any): void => {
   try {
     window.localStorage.setItem(key, encrypt(value));

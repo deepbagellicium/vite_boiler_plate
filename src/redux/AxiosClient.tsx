@@ -23,11 +23,8 @@ interface AxiosTypeStringType {
 interface AxiosConfigType {
   method: string;
   url: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data?: Record<string, any>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   params?: Record<string, any>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   headers: Record<string, any>;
   signal?: GenericAbortSignal;
 }
@@ -35,7 +32,6 @@ interface AxiosConfigType {
 const AxiosClient = async (
   type: "get" | "post" | "put" | "patch" | "delete",
   api: string,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   payload: Record<string, any>,
   toolkit: {
     dispatch?: ThunkDispatch<unknown, unknown, Action>;
@@ -44,9 +40,7 @@ const AxiosClient = async (
     requestId?: string;
     signal?: AbortSignal;
     abort?: (reason?: string | undefined) => void;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     rejectWithValue: any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     fulfillWithValue: any;
   },
   content = "application/json"
